@@ -1,3 +1,11 @@
 *
+
+!bld/
+!bld/**/*
+bld/out
+
+!src/
+!src/**/*
+
 !.gitignore
 !license.md
