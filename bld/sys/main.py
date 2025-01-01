@@ -1,4 +1,5 @@
 import os
+import sys
 import shutil
 from data import Data
 import dmd
@@ -26,6 +27,11 @@ def main() -> None:
 
     for src in Data.binSources:
         os.remove(f"{Data.projDir}/{Data.outDir}/{src}.o")
+
+    if (2 <= len(sys.argv) and "run" == sys.argv[1]):
+        os.system("clear")
+        os.system(f"{Data.projDir}/{Data.outDir}/{Data.binName}-{Data.Version.major}.{Data.Version.minor}.{Data.Version.patch}")
+        shutil.rmtree(f"{Data.projDir}/{Data.outDir}")
 
     return
 

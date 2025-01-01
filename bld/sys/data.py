@@ -34,7 +34,7 @@ class Data:
             case _:
                 print("Unsupported OS")
 
-        tomlPath:str = f"{Data.projDir}/bld/.toml"
+        tomlPath:str = f"{Data.projDir}/bld/cfg.toml"
         if not (os.path.exists(tomlPath)): return False
 
         with open(tomlPath, "rb") as file:
