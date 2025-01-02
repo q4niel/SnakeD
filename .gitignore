@@ -1,5 +1,9 @@
 *
 
+!3rd
+!3rd/**/*
+lib
+
 !bld/
 !bld/**/*
 bld/out
