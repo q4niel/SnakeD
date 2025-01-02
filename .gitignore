@@ -1,15 +1,15 @@
 *
 
-!3rd
-!3rd/**/*
-lib
+!build/
+!build/**/*
+build/out
 
-!bld/
-!bld/**/*
-bld/out
+!source/
+!source/**/*
 
-!src/
-!src/**/*
+!third
+!third/**/*
+third/lib
 
 !.gitignore
 !license.md

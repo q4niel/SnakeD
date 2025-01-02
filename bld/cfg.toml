@@ -1,9 +1,0 @@
-outDir = "bld/out"
-name = "DLang-Tetris"
-srcDir = "src"
-sources = ["main"]
-
-[version]
-major = 0
-minor = 0
-patch = 0

@@ -17,7 +17,7 @@ class Data:
 
     @staticmethod
     def init() -> bool:
-        tomlPath:str = f"{Data.projDir}/3rd/cfg.toml"
+        tomlPath:str = f"{Data.projDir}/third/config.toml"
         if not (os.path.exists(tomlPath)): return False
 
         with open(tomlPath, "rb") as file:

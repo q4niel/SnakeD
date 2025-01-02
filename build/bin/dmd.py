@@ -4,13 +4,16 @@ from typing import List, Self
 def compile(filename:str, srcDir:str, outDir:str) -> bool:
     return (0 == os.system(f"dmd -c {srcDir}/{filename}.d -of{outDir}/{filename}.o"))
 
-def link(outPath:str, name:str, srcs:List[str]) -> bool:
-    appended:str = ""
+def link(outPath:str, libPath:str, name:str, sources:List[str], statics:List[str]) -> bool:
+    allSources:str = ""
+    for src in sources:
+        allSources += f"{outPath}/{src}.o "
+    
+    allStatics:str = ""
+    for lib in statics:
+        allStatics += f"-L{libPath}/{lib}.a "
 
-    for src in srcs:
-        appended += f"{outPath}/{src}.o "
-
-    return (0 == os.system(f"dmd {appended} -of{outPath}/{name}"))
+    return (0 == os.system(f"dmd {allSources} {allStatics} -of{outPath}/{name}"))
 
 class Builder:
     def __init__(self) -> None:
@@ -18,7 +21,9 @@ class Builder:
         self.name:str = ""
         self.srcDir:str = ""
         self.outDir:str = ""
-        self.srcs:List[str] = []
+        self.libDir:str = ""
+        self.sources:List[str] = []
+        self.statics:List[str] = []
         return
 
     def setName(self, name:str) -> Self:
@@ -33,13 +38,21 @@ class Builder:
         self.outDir = path
         return self
 
+    def setLibDir(self, path:str) -> Self:
+        self.libDir = path
+        return self
+
     def addSource(self, file:str) -> Self:
-        self.srcs.append(file)
+        self.sources.append(file)
+        return self
+    
+    def addStatic(self, file:str) -> Self:
+        self.statics.append(file)
         return self
 
     def build(self) -> bool:
-        for src in self.srcs:
+        for src in self.sources:
             if not compile(src, self.srcDir, self.outDir):
                 return False
 
-        return link(self.outDir, self.name, self.srcs)
+        return link(self.outDir, self.libDir, self.name, self.sources, self.statics)

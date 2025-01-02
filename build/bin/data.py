@@ -14,10 +14,14 @@ class Data:
     )
     os:OS = OS.OTHER
 
-    srcDir:str = ""
-    outDir:str = ""
     binName:str = ""
+    outDir:str = ""
+
+    srcDir:str = ""
     binSources:List[str] = []
+
+    libDir:str = ""
+    binStatics:List[str] = []
 
     class Version:
         major:int = 0
@@ -34,16 +38,20 @@ class Data:
             case _:
                 print("Unsupported OS")
 
-        tomlPath:str = f"{Data.projDir}/bld/cfg.toml"
+        tomlPath:str = f"{Data.projDir}/build/config.toml"
         if not (os.path.exists(tomlPath)): return False
 
         with open(tomlPath, "rb") as file:
             data:dict = tomllib.load(file)
 
-            Data.srcDir = data["srcDir"]
-            Data.outDir = data["outDir"]
             Data.binName = data["name"]
-            Data.binSources = data["sources"]
+            Data.outDir = data["outDir"]
+
+            Data.srcDir = data["srcDir"]
+            Data.binSources = data["srcs"]
+
+            Data.libDir = data["libDir"]
+            Data.binStatics = data["libs"]
 
             Data.Version.major = data["version"]["major"]
             Data.Version.minor = data["version"]["minor"]

@@ -19,10 +19,15 @@ def main() -> None:
             .setName(f"{Data.binName}-{Data.Version.major}.{Data.Version.minor}.{Data.Version.patch}")
             .setSrcDir(f"{Data.projDir}/{Data.srcDir}")
             .setOutDir(f"{Data.projDir}/{Data.outDir}")
+            .setLibDir(f"{Data.projDir}/{Data.libDir}")
     )
     
     for src in Data.binSources:
         builder.addSource(src)
+
+    for lib in Data.binStatics:
+        builder.addStatic(lib)
+
     builder.build()
 
     for src in Data.binSources:

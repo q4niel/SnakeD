@@ -1,3 +1,3 @@
 #!/bin/bash
 projDir=$(dirname $(dirname "$(realpath "$0")"))
-python3 -B $projDir/bld/bin/main.py run
+python3 -B $projDir/third/bin/main.py

@@ -1,7 +1,7 @@
 import os
 import shutil
 from data import Data
-from get import download
+import link
 
 def main() -> None:
     Data.init()
@@ -11,8 +11,8 @@ def main() -> None:
 
     os.makedirs(f"{Data.projDir}/{Data.libDir}")
 
-    for link in Data.libLinks:
-        download(link, f"{Data.projDir}/{Data.libDir}")
+    for l in Data.libLinks:
+        link.get(l, f"{Data.projDir}/{Data.libDir}", tar=True)
 
     return
 
