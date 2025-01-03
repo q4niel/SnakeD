@@ -1,4 +1,4 @@
-name = "DLang-Tetris"
+name = "SnakeD"
 outDir = "build/out"
 
 srcDir = "source"

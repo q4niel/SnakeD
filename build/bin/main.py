@@ -16,7 +16,7 @@ def main() -> None:
     if not builder.isValid: return
     (
         builder
-            .setName(f"{Data.binName}-{Data.Version.major}.{Data.Version.minor}.{Data.Version.patch}")
+            .setName(f"{Data.binName}")
             .setSrcDir(f"{Data.projDir}/{Data.srcDir}")
             .setOutDir(f"{Data.projDir}/{Data.outDir}")
             .setLibDir(f"{Data.projDir}/{Data.libDir}")
@@ -35,7 +35,7 @@ def main() -> None:
 
     if (2 <= len(sys.argv) and "run" == sys.argv[1]):
         os.system("clear")
-        os.system(f"{Data.projDir}/{Data.outDir}/{Data.binName}-{Data.Version.major}.{Data.Version.minor}.{Data.Version.patch}")
+        os.system(f"{Data.projDir}/{Data.outDir}/{Data.binName}")
         shutil.rmtree(f"{Data.projDir}/{Data.outDir}")
 
     return
