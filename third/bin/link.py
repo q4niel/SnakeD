@@ -1,10 +1,19 @@
 import os
 import tarfile
+import zipfile
 import urllib.request
 import urllib.parse
 import urllib.error
+from data import Data, OS
 
-def download(url:str, dstDir:str) -> str:
+def download(lib, dstDir:str) -> str:
+    url:str = ""
+    match Data.os:
+        case OS.LINUX:
+            url = lib["linux"]
+        case OS.WINDOWS:
+            url = lib["windows"]
+
     try:
         req = urllib.request.Request(url, headers={'User-Agent': 'Mozilla/5.0'})
         with urllib.request.urlopen(req) as response:
@@ -39,9 +48,27 @@ def untar(file:str, dir:str) -> None:
         tar.extractall(path=dir)
     os.remove(f"{dir}/{file}")
 
-def get(url:str, dstDir:str, tar:bool=False) -> None:
-    filename = download(url, dstDir)
+def extract(file:str, dir:str, libName:str) -> None:
+    fullPath:str = f"{dir}/{file}"
+    extension:int = 0
+
+    match Data.os:
+        case OS.LINUX:
+            with tarfile.open(fullPath, "r:gz") as archive:
+                archive.extractall(path=dir)
+            extension = 7
+        case OS.WINDOWS:
+            return
+
+    os.remove(fullPath)
+    os.rename(fullPath[:-extension], libName)
+    return
+
+def get(lib) -> None:
+    libDir:str = f"{Data.projDir}/{Data.libDir}"
+
+    filename = download(lib, libDir)
     if "" == filename: return
 
-    if tar: untar(filename, dstDir)
+    extract(filename, libDir, f"{libDir}/{lib["name"]}")
     return

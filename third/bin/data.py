@@ -2,6 +2,12 @@ import os
 import sys
 import tomllib
 from typing import List
+from enum import Enum, auto
+
+class OS(Enum):
+    OTHER = auto()
+    LINUX = auto()
+    WINDOWS = auto()
 
 class Data:
     projDir:str = os.path.dirname (
@@ -11,19 +17,29 @@ class Data:
             )
         )
     )
+    os:OS = OS.OTHER
 
     libDir:str = ""
-    libLinks:List[str] = []
+    libs = []
 
     @staticmethod
     def init() -> bool:
-        tomlPath:str = f"{Data.projDir}/third/config.toml"
+        match os.name:
+            case "posix":
+                Data.os = OS.LINUX
+            case "nt":
+                Data.os = OS.WINDOWS
+            case _:
+                print("Unsupported OS")
+                return False
+
+        tomlPath:str = f"{Data.projDir}/third/install.toml"
         if not (os.path.exists(tomlPath)): return False
 
         with open(tomlPath, "rb") as file:
             data:dict = tomllib.load(file)
 
             Data.libDir = data["libDir"]
-            Data.libLinks = data["libLinks"]
+            Data.libs = data["libs"]
 
         return True
