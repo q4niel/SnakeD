@@ -1,7 +1,7 @@
 import os
 import sys
 import tomllib
-from typing import List
+from typing import List, TypedDict
 from enum import Enum, auto
 
 class OS(Enum):
@@ -10,6 +10,11 @@ class OS(Enum):
     WINDOWS = auto()
 
 class Data:
+    class LibsEntry(TypedDict):
+        name:str
+        linux:str
+        windows:str
+
     projDir:str = os.path.dirname (
         os.path.dirname (
             os.path.dirname (
@@ -20,7 +25,7 @@ class Data:
     os:OS = OS.OTHER
 
     libDir:str = ""
-    libs = []
+    libs:List[LibsEntry] = []
 
     @staticmethod
     def init() -> bool:

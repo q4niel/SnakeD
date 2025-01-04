@@ -6,7 +6,7 @@ import urllib.parse
 import urllib.error
 from data import Data, OS
 
-def download(lib, dstDir:str) -> str:
+def download(lib:Data.LibsEntry, dstDir:str) -> str:
     url:str = ""
     match Data.os:
         case OS.LINUX:
@@ -64,7 +64,7 @@ def extract(file:str, dir:str, libName:str) -> None:
     os.rename(fullPath[:-extension], libName)
     return
 
-def get(lib) -> None:
+def get(lib:Data.LibsEntry) -> None:
     libDir:str = f"{Data.projDir}/{Data.libDir}"
 
     filename = download(lib, libDir)

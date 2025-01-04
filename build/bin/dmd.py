@@ -5,7 +5,7 @@ from data import Data
 def compile(filename:str, srcDir:str, outDir:str) -> bool:
     return (0 == os.system(f"dmd -c {srcDir}/{filename}.d -of{outDir}/{filename}.o"))
 
-def link(outPath:str, libPath:str, name:str, sources:List[str], libs) -> bool:
+def link(outPath:str, libPath:str, name:str, sources:List[str], libs:List[Data.LibsEntry]) -> bool:
     appendedSources:str = ""
     for src in sources:
         appendedSources += f"{outPath}/{src}.o "
@@ -30,7 +30,7 @@ class Builder:
 
         self.libDir:str = ""
         self.glueDir:str = ""
-        self.libs = []
+        self.libs:List[Data.LibsEntry] = []
         return
 
     def setName(self, name:str) -> Self:
@@ -57,7 +57,7 @@ class Builder:
         self.glueDir = path
         return self
 
-    def addLib(self, lib) -> Self:
+    def addLib(self, lib:Data.LibsEntry) -> Self:
         self.libs.append(lib)
         return self
 
