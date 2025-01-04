@@ -5,7 +5,9 @@ from data import Data
 import dmd
 
 def main() -> None:
-    Data.init()
+    if not Data.init():
+        print("Data initialization failed")
+        return
 
     if (os.path.exists(f"{Data.projDir}/{Data.outDir}")):
         shutil.rmtree(f"{Data.projDir}/{Data.outDir}")
@@ -17,16 +19,17 @@ def main() -> None:
     (
         builder
             .setName(f"{Data.binName}")
-            .setSrcDir(f"{Data.projDir}/{Data.srcDir}")
             .setOutDir(f"{Data.projDir}/{Data.outDir}")
+            .setSrcDir(f"{Data.projDir}/{Data.srcDir}")
             .setLibDir(f"{Data.projDir}/{Data.libDir}")
+            .setGlueDir(f"{Data.projDir}/{Data.glueDir}")
     )
     
     for src in Data.binSources:
         builder.addSource(src)
 
-    for lib in Data.binStatics:
-        builder.addStatic(lib)
+    for lib in Data.libs:
+        builder.addLib(lib)
 
     builder.build()
 

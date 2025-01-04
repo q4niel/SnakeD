@@ -2,7 +2,12 @@ import os
 import sys
 import tomllib
 from typing import List
-from platform import OS
+from enum import Enum, auto
+
+class OS(Enum):
+    OTHER = auto()
+    LINUX = auto()
+    WINDOWS = auto()
 
 class Data:    
     projDir:str = os.path.dirname (
@@ -21,7 +26,8 @@ class Data:
     binSources:List[str] = []
 
     libDir:str = ""
-    binStatics:List[str] = []
+    glueDir:str = ""
+    libs = []
 
     class Version:
         major:int = 0
@@ -37,8 +43,9 @@ class Data:
                 Data.os = OS.WINDOWS
             case _:
                 print("Unsupported OS")
+                return False
 
-        tomlPath:str = f"{Data.projDir}/build/config.toml"
+        tomlPath:str = f"{Data.projDir}/build/build.toml"
         if not (os.path.exists(tomlPath)): return False
 
         with open(tomlPath, "rb") as file:
@@ -51,7 +58,8 @@ class Data:
             Data.binSources = data["srcs"]
 
             Data.libDir = data["libDir"]
-            Data.binStatics = data["libs"]
+            Data.glueDir = data["glueDir"]
+            Data.libs = data["libs"]
 
             Data.Version.major = data["version"]["major"]
             Data.Version.minor = data["version"]["minor"]

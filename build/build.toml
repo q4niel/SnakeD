@@ -5,7 +5,12 @@ srcDir = "source"
 srcs = ["main"]
 
 libDir = "third/lib"
-libs = ["raylib/lib/libraylib"]
+glueDir = "third/glue"
+
+[[libs]]
+glue = "raylib.c"
+linux = "raylib/lib/libraylib.a"
+windows = ""
 
 [version]
 major = 0

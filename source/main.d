@@ -1,5 +1,5 @@
 import std.stdio;
-import third.bindings.raylib;
+import third.glue.raylib;
 
 int main(string[] args) {
     InitWindow(750, 750, "SnakeD");

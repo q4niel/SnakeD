@@ -1,53 +1,64 @@
 import os
 from typing import List, Self
+from data import Data
 
 def compile(filename:str, srcDir:str, outDir:str) -> bool:
     return (0 == os.system(f"dmd -c {srcDir}/{filename}.d -of{outDir}/{filename}.o"))
 
-def link(outPath:str, libPath:str, name:str, sources:List[str], statics:List[str]) -> bool:
-    allSources:str = ""
+def link(outPath:str, libPath:str, name:str, sources:List[str], libs) -> bool:
+    appendedSources:str = ""
     for src in sources:
-        allSources += f"{outPath}/{src}.o "
-    
-    allStatics:str = ""
-    for lib in statics:
-        allStatics += f"-L{libPath}/{lib}.a "
+        appendedSources += f"{outPath}/{src}.o "
 
-    return (0 == os.system(f"dmd {allSources} {allStatics} -of{outPath}/{name}"))
+    appendedGlues:str = ""
+    appendedLibs:str = ""
+    for lib in libs:
+        appendedGlues += f"{Data.glueDir}/{lib["glue"]} "
+        appendedLibs += f"-L{libPath}/{lib["linux"]} "
+
+    return (0 == os.system(f"dmd {appendedSources} {appendedGlues} {appendedLibs} -of{outPath}/{name}"))
 
 class Builder:
     def __init__(self) -> None:
         self.isValid:bool = (0 == os.system("dmd --version"))
+
         self.name:str = ""
-        self.srcDir:str = ""
         self.outDir:str = ""
-        self.libDir:str = ""
+
+        self.srcDir:str = ""
         self.sources:List[str] = []
-        self.statics:List[str] = []
+
+        self.libDir:str = ""
+        self.glueDir:str = ""
+        self.libs = []
         return
 
     def setName(self, name:str) -> Self:
         self.name = name
         return self
 
+    def setOutDir(self, path:str) -> Self:
+        self.outDir = path
+        return self
+
     def setSrcDir(self, path:str) -> Self:
         self.srcDir = path
         return self
 
-    def setOutDir(self, path:str) -> Self:
-        self.outDir = path
+    def addSource(self, file:str) -> Self:
+        self.sources.append(file)
         return self
 
     def setLibDir(self, path:str) -> Self:
         self.libDir = path
         return self
 
-    def addSource(self, file:str) -> Self:
-        self.sources.append(file)
+    def setGlueDir(self, path:str) -> Self:
+        self.glueDir = path
         return self
-    
-    def addStatic(self, file:str) -> Self:
-        self.statics.append(file)
+
+    def addLib(self, lib) -> Self:
+        self.libs.append(lib)
         return self
 
     def build(self) -> bool:
@@ -55,4 +66,4 @@ class Builder:
             if not compile(src, self.srcDir, self.outDir):
                 return False
 
-        return link(self.outDir, self.libDir, self.name, self.sources, self.statics)
+        return link(self.outDir, self.libDir, self.name, self.sources, self.libs)
