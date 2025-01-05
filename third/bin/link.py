@@ -58,7 +58,9 @@ def extract(file:str, dir:str, libName:str) -> None:
                 archive.extractall(path=dir)
             extension = 7
         case OS.WINDOWS:
-            return
+            with zipfile.ZipFile(fullPath, "r") as archive:
+                archive.extractall(path=dir)
+            extension = 4
 
     os.remove(fullPath)
     os.rename(fullPath[:-extension], libName)
