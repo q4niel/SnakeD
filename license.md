@@ -1,6 +1,6 @@
 # The Insight License II
 
-**© 2024 Daniel Osberg**
+**© 2025 Daniel Osberg**
 
 Each official release of this project includes an End User License Agreement (EULA), which governs the entire release, including all components such as source code, art assets, binaries, and other related files.
 
