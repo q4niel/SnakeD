@@ -1,7 +1,7 @@
 import os
 import sys
 import shutil
-from data import Data
+from data import Data, OS
 import dmd
 
 def main() -> None:
@@ -31,10 +31,17 @@ def main() -> None:
     for lib in Data.libs:
         builder.addLib(lib)
 
-    builder.build()
+    builder.addFlags(Data.flags).build()
+
+    objectExtension:str = ""
+    match Data.os:
+        case OS.LINUX:
+            objectExtension = ".o"
+        case OS.WINDOWS:
+            objectExtension = ".obj"
 
     for src in Data.binSources:
-        os.remove(f"{Data.projDir}/{Data.outDir}/{src}.o")
+        os.remove(f"{Data.projDir}/{Data.outDir}/{src}{objectExtension}")
 
     if (2 <= len(sys.argv) and "run" == sys.argv[1]):
         os.system("clear")

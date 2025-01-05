@@ -10,7 +10,21 @@ glueDir = "third/glue"
 [[libs]]
 glue = "raylib.c"
 linux = "raylib/lib/libraylib.a"
-windows = ""
+windows = "raylib/lib/raylib.lib"
+
+[flags]
+linux = ""
+windows = [
+    "-L/NODEFAULTLIB:libcmt.lib",
+    "-Lkernel32.lib",
+    "-Luser32.lib",
+    "-Lgdi32.lib",
+    "-Lshell32.lib",
+    "-Lwinmm.lib",
+    "-Lole32.lib",
+    "-Loleaut32.lib",
+    "-Luuid.lib"
+]
 
 [version]
 major = 0

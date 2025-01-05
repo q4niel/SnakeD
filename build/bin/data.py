@@ -34,6 +34,8 @@ class Data:
     glueDir:str = ""
     libs:List[LibsEntry] = []
 
+    flags:List[str] = []
+
     class Version:
         major:int = 0
         minor:int = 0
@@ -65,6 +67,12 @@ class Data:
             Data.libDir = data["libDir"]
             Data.glueDir = data["glueDir"]
             Data.libs = data["libs"]
+
+            match Data.os:
+                case OS.LINUX:
+                    Data.flags = data["flags"]["linux"]
+                case OS.WINDOWS:
+                    Data.flags = data["flags"]["windows"]
 
             Data.Version.major = data["version"]["major"]
             Data.Version.minor = data["version"]["minor"]
