@@ -11,7 +11,7 @@ class OS(Enum):
 
 class Data:
     class LibsEntry(TypedDict):
-        glue:str
+        glues:List[str]
         linux:str
         windows:str
 

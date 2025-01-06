@@ -8,9 +8,13 @@ libDir = "third/lib"
 glueDir = "third/glue"
 
 [[libs]]
-glue = "raylib.c"
 linux = "raylib/lib/libraylib.a"
 windows = "raylib/lib/raylib.lib"
+glues = [
+    "raylib/raylib.c",
+    "raylib/raymath.c",
+    "raylib/rlgl.c"
+]
 
 [flags]
 linux = ""

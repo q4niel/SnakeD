@@ -33,8 +33,9 @@ def link(outPath:str, libPath:str, name:str, sources:List[str], libs:List[Data.L
     appendedGlues:str = ""
     appendedLibs:str = ""
     for lib in libs:
-        appendedGlues += f"{Data.glueDir}/{lib["glue"]} "
         appendedLibs += f"-L{libPath}/{lib[libType]} "
+        for glue in lib["glues"]:
+            appendedGlues += f"{Data.glueDir}/{glue} "
 
     appendedFlags:str = ""
     for flag in flags:
