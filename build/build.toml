@@ -5,7 +5,10 @@ srcDir = "source"
 srcs = [
     "data",
     "engine",
-    "main"
+    "food",
+    "ientity",
+    "main",
+    "snake"
 ]
 
 libDir = "third/lib"
