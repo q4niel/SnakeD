@@ -1,10 +1,12 @@
 import third.glue.raylib.raylib;
 
-string windowName = "SnakeD";
-uint targetFPS = 60;
+struct Data {
+    static string windowName = "SnakeD";
+    static uint targetFPS = 60;
 
-int cellSize = 30;
-int cellCount = 25;
+    static int cellSize = 30;
+    static int cellCount = 25;
 
-Color lightGreen = {173, 204, 96, 255};
-Color darkGreen = {43, 51, 24, 255};
+    static Color lightGreen = {173, 204, 96, 255};
+    static Color darkGreen = {43, 51, 24, 255};
+}

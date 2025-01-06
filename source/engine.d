@@ -1,25 +1,27 @@
 import third.glue.raylib.raylib;
 import data;
 
-bool init() {
-    InitWindow(cellSize * cellCount, cellSize * cellCount, windowName.ptr);
-    SetTargetFPS(targetFPS);
+struct Engine {
+    static bool on() {
+        InitWindow(Data.cellSize * Data.cellCount, Data.cellSize * Data.cellCount, Data.windowName.ptr);
+        SetTargetFPS(Data.targetFPS);
 
-    return true;
-}
+        return true;
+    }
 
-bool runProc = true;
-bool proc() {
-    runProc = !WindowShouldClose();
-    BeginDrawing();
+    static bool runnable = true;
+    static bool run() {
+        runnable = !WindowShouldClose();
+        BeginDrawing();
 
-    ClearBackground(lightGreen);
+        ClearBackground(Data.lightGreen);
 
-    EndDrawing();
-    return true;
-}
+        EndDrawing();
+        return true;
+    }
 
-bool term() {
-    CloseWindow();
-    return true;
+    static bool off() {
+        CloseWindow();
+        return true;
+    }
 }
