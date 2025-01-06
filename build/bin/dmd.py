@@ -10,7 +10,7 @@ def compile(filename:str, srcDir:str, outDir:str) -> bool:
         case OS.WINDOWS:
             extension = ".obj"
 
-    return (0 == os.system(f"dmd -c {srcDir}/{filename}.d -of{outDir}/{filename}{extension}"))
+    return (0 == os.system(f"dmd -c -I{Data.projDir}/{Data.srcDir} {srcDir}/{filename}.d -of{outDir}/{filename}{extension}"))
 
 def link(outPath:str, libPath:str, name:str, sources:List[str], libs:List[Data.LibsEntry], flags:List[str] = []) -> bool:
     objectExtension:str = ""

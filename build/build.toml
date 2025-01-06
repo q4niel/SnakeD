@@ -2,7 +2,10 @@ name = "SnakeD"
 outDir = "build/out"
 
 srcDir = "source"
-srcs = ["main"]
+srcs = [
+    "engine",
+    "main"
+]
 
 libDir = "third/lib"
 glueDir = "third/glue"

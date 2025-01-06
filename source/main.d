@@ -1,15 +1,20 @@
 import std.stdio;
-import third.glue.raylib.raylib;
+import engine;
 
 int main(string[] args) {
-    InitWindow(750, 750, "SnakeD");
-    SetTargetFPS(60);
-
-    while (!WindowShouldClose()) {
-        BeginDrawing();
-        EndDrawing();
+    if (!init()) {
+        writeln("Error: Engine Initialization failed. Unable to set up the environment.");
     }
 
-    CloseWindow();
+    while (runProc) {
+        if (!proc()) {
+            writeln("Error: Engine Processing failed. Encountered an unexpected issue during execution.");
+        }
+    }
+
+    if (!term()) {
+        writeln("Error: Engine Termination failed. Cleanup was not completed successfully.");
+    }
+
     return 0;
 }
