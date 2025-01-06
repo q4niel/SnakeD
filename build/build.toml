@@ -3,6 +3,7 @@ outDir = "build/out"
 
 srcDir = "source"
 srcs = [
+    "data",
     "engine",
     "main"
 ]

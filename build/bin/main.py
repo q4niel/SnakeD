@@ -44,7 +44,6 @@ def main() -> None:
         os.remove(f"{Data.projDir}/{Data.outDir}/{src}{objectExtension}")
 
     if (2 <= len(sys.argv) and "run" == sys.argv[1]):
-        os.system("clear")
         os.system(f"{Data.projDir}/{Data.outDir}/{Data.binName}")
         shutil.rmtree(f"{Data.projDir}/{Data.outDir}")
 
