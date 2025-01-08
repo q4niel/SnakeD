@@ -1,8 +1,9 @@
 # Snake Game in DLang
 
-<img src="preview.png" width="125" style="float:left; margin-right:25px">
-
+<img src="preview.png" width="125">
 This is a simple Snake game built with the [D programming language](https://dlang.org/) using [raylib](https://github.com/raysan5/raylib). The project was created as an exercise to explore and experiment with DLang and was not developed with the primary intention of making a fully polished game.
+
+<br><br>
 
 ## Prerequisites
 Before building and running the game, make sure you have the following installed:
